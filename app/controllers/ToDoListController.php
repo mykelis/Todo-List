@@ -13,7 +13,8 @@ class ToDoListController extends \BaseController {
 	 * @return Response
 	 */
 	public function index()
-	{   $todo_lists = TodoList::all();
+	{   
+		$todo_lists = TodoList::all();
 		return View::make('todos.index')->with('todo_lists', $todo_lists);
 	}
 
