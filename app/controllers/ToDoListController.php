@@ -1,6 +1,6 @@
 <?php
 
-class ToDoListController extends \BaseController {
+class ToDoListController extends BaseController {
 
     public function __construct()
     {
