@@ -7,35 +7,36 @@ class ToDoListController extends BaseController {
         $this->beforeFilter('csrf' , array('on' => ['post', 'put']));
     }
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{   $todo_lists = TodoList::all();
-		return View::make('todos.index')->with('todo_lists', $todo_lists);
-	}
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {   
+        $todo_lists = TodoList::all();
+        return View::make('todos.index')->with('todo_lists', $todo_lists);
+    }
 
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
         return View::make('todos.create');
-	}
+    }
 
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store()
+    {
         $rules = array(
             'title' => array('required', 'unique:todo_lists,name')
         );
@@ -53,44 +54,44 @@ class ToDoListController extends BaseController {
     }
 
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
         $list = TodoList::findOrFail($id);
         $items = $list->listItems()->get();
         return $items;
-		return View::make('todos.show')
+        return View::make('todos.show')
             ->withList($list)
             ->withItems($items);
-	}
+    }
 
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$list = TodoList::findorFail($id);
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $list = TodoList::findorFail($id);
         return View::make ('todos.edit')->withList($list);
-	}
+    }
 
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id)
+    {
         $rules = array(
             'name' => array('required', 'unique:todo_lists')
         );
@@ -105,20 +106,20 @@ class ToDoListController extends BaseController {
         $list->name = $name;
         $list->update();
         return Redirect::route('todos.index')->withMessage('List updated');
-	}
+    }
 
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		$todo_list = TodoList::findOrFail($id)->delete();
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        $todo_list = TodoList::findOrFail($id)->delete();
         return Redirect::route('todos.index')->withMessage('Item Deleted');
-	}
+    }
 
 
 }
