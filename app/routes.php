@@ -1,4 +1,21 @@
 <?php
+Route::get('/',['as' => 'home', function()
+{
+  return 'Home Page';
+}]);
+
+Route::filter('guest', function()
+{
+    if (Auth::check()) return Redirect::to('/');
+});
+
+
+
+Route::get('profile', function()
+{
+    return "Welcome." . Auth::user()->email;
+});
+
 
 Route::get('login', 'SessionsController@create');
 Route::get('logout', 'SessionsController@destoy');
