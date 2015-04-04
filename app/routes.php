@@ -1,7 +1,7 @@
 <?php
 Route::get('/',['as' => 'home', function()
 {
-  return 'Home Page';
+  return View::make('hello');
 }]);
 
 Route::filter('guest', function()
@@ -14,13 +14,13 @@ Route::filter('guest', function()
 Route::get('profile', function()
 {
     return "Welcome." . Auth::user()->email;
-});
+})->before('auth');
 
 
 Route::get('login', 'SessionsController@create');
-Route::get('logout', 'SessionsController@destoy');
+Route::get('logout', 'SessionsController@destroy');
 
-Route::resource('sessions', 'SessionsController');
+Route::resource('sessions', 'SessionsController', ['only' => ['index', 'create', 'destroy','store']]);
 /**
  *  / = home
  * /todos - all lists
@@ -29,7 +29,7 @@ Route::resource('sessions', 'SessionsController');
  * todos/create - create new list
  */
 
-Route::get('/', 'TodoListController@index');
+Route::get('/', 'ToDoListController@index');
 //Route::get('/todos', 'TodoListController@index');
 //Route::get('/todos/{id}', 'ToDoListController@show');
 

@@ -1,7 +1,13 @@
+@extends('layouts.default')
+
+@section ('content')
+
+
+
+
 <h1>Login</h1>
 
-{{ Form::open(array('route' => 'sessions.store'))}}
-
+{{ Form::open(array('action' => 'SessionsController@store'))}}
 <ul>
     <li>
         {{ Form::label('email', 'Email:') }}
@@ -20,3 +26,5 @@
 
 </ul>
 {{ Form::close() }}
+
+@stop
