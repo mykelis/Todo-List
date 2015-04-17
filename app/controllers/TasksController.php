@@ -14,7 +14,7 @@ class TasksController extends BaseController {
 	 */
 	public function index()
 	{
-		$tasks = Tasks::all();
+		$tasks = Task::all();
 		return View::make('todos.index')->with('tasks', $tasks);
 	}
 
@@ -22,7 +22,7 @@ class TasksController extends BaseController {
 	/**
 	 * Show the form for creating a new resource.
 	 *
-	 * @return Response
+	 * @return Resuse ponse
 	 */
 	public function create()
 	{
@@ -38,7 +38,7 @@ class TasksController extends BaseController {
 	public function store()
 	{
 		$rules = array(
-			'title' => array('required', 'unique:tasks,name')
+			'title' => array('required')
 		);
 
 		$validator = Validator::make(Input::all(), $rules);
@@ -47,10 +47,10 @@ class TasksController extends BaseController {
 			return Redirect::route('todos.create')->withErrors($validator)->withInput();
 		}
 		$name = Input::get('title');
-		$list = new TodoList();
+		$list = new Task();
 		$list->name = $name;
 		$list->save();
-		return Redirect::route('todos.index')->withMessage('Your new list has been created!');
+		return Redirect::route('todos.index')->withMessage('Your new task has been created!');
 	}
 
 
@@ -102,7 +102,7 @@ class TasksController extends BaseController {
 			return Redirect::route('todos.edit', $id)->withErrors($validator)->withInput();
 		}
 		$name = Input::get('name');
-		$list = Tasks::findOrFail($id);
+		$list = Task::findOrFail($id);
 		$list->name = $name;
 		$list->update();
 		return Redirect::route('todos.index')->withMessage('List updated');
@@ -117,8 +117,8 @@ class TasksController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$tasks = Tasks::findOrFail($id)->delete();
-		return Redirect::route('todos.index')->withMessage('Item Deleted');
+		$tasks = Task::findOrFail($id)->delete();
+		return Redirect::route('todos.index')->withMessage('Task Deleted');
 	}
 
 

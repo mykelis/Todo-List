@@ -1,4 +1,4 @@
 <?php
-class Tasks extends Eloquent {
-
+class Task extends Eloquent {
+        protected $table = 'tasks';
     }

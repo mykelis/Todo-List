@@ -29,16 +29,16 @@ Route::resource('sessions', 'SessionsController', ['only' => ['index', 'create',
  * todos/create - create new list
  */
 
-Route::get('/', 'ToDoListController@index');
+Route::get('/', 'TasksController@index');
 //Route::get('/todos', 'TodoListController@index');
 //Route::get('/todos/{id}', 'ToDoListController@show');
 
 Route::get('/db', function(){
-    $result = DB::table ('todo_lists')->where('name', 'Your List')->first();
+    $result = DB::table ('Tasks')->where('name', 'Your List')->first();
     return $result->name;
 });
 
-Route::resource('todos', 'ToDoListController');
+Route::resource('todos', 'TasksController');
 
 Event::listen('illuminate.query', function($query){
 

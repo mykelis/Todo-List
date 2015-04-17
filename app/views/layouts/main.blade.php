@@ -19,6 +19,15 @@
             </li>
         </ul>
     </nav>
+
+    @if (Auth::check())
+     <a href="{{ URL::action('SessionsController@destroy')}}">Logout</a>
+
+    @else
+
+        <a href="{{ URL::action('SessionsController@create')}}">Login</a>
+
+        @endif
  
     <!-- End Header and Nav -->
     @if(Session::has('message'))
